@@ -1,42 +1,67 @@
 package main
 
-import(
-	//"fmt"
-	"log"
-	//"database/sql"
-	"github.com/gorilla/mux"
-	//"strconv"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"net/http"
-	"encoding/json"
-	//_"github.com/lib/pq"
-	//"github.com/go-sql-driver/mysql"
 )
 
+func Database() *gorm.DB {
+	//DB Connection
+	//docker run --name mysqldocker -v /my/custom:/etc/mysql/conf.d -p 3369:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7
+	db, err := gorm.Open("mysql", "root:root@tcp(127.0.0.1:3369)/redventures?charset=utf8&parseTime=True")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	return db
+}
+
 func main() {
-	
-	Routes := mux.NewRouter().StrictSlash(true);
-	
-		Routes.HandleFunc("/hello", getHello).Methods("GET")
-	
-		log.Fatal(http.ListenAndServe(":3600", Routes))
+
+	//Migrate the schema
+	db := Database()
+	db.AutoMigrate(&UserMigration{}, &WidgetsMigration{})
+
+	router := gin.Default()
+
+	v1 := router.Group("/api")
+	{
+		v1.GET("/", FetchAll)
+	}
+	router.Run(":8979")
 
 }
 
-type Example struct {
-	ID uint "json:*id"
-	Example string "json:*example"
+type LoginRequest struct {
+	Email 		string		 `json:"email"`
+	Password 	string		 `json:"password"`
 }
 
-var examples = []Example{
-	Example{ID:1, Example:"Lorem Ipsum"},
-	Example{ID:2, Example:"Lorem Ipsum"},
+type UserMigration struct  {
+	gorm.Model
+	id        uint   `json:"id"`
+	email string `json:"email"`
+	gravatar  string `json:"gravatar "`	
+	name  string `json:"name "`
+	password  string `json:"password"`
 }
 
-func getHello(w http.ResponseWriter, r *http.Request) {
+type WidgetsMigration struct  {
+	gorm.Model
+	id        uint   `json:"id"`
+	color string `json:"color"`	
+	inventory  int `json:"inventory"`
+	name  string `json:"name "`
+	price  string `json:"price"`
+}
 
-	w.Header().Set("Content-Type","application/json")
-	json.NewEncoder(w).Encode(examples)
+type Mock struct {
+	Lorem 	string 	`json:"lorem"`
+	Ipsum 		string 	`json:"ipsum"`
+}
 
-	//respondWithJSON(w, http.StatusOK, p)
-
+func FetchAll(c *gin.Context) {
+	var _todos []Mock
+	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": _todos})
 }
