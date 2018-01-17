@@ -8,5 +8,5 @@ import (
 
 func MockFetchAll(c *gin.Context) {
 	var _todos []Response.Mock
-	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": _todos})
+	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": _todos })
 }
