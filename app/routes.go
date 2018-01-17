@@ -46,23 +46,16 @@ func Routes() {
 	router.GET("/", Controllers.MockFetchAll)
 	router.POST("/login", Middleware.LoginHandler)
 
+	
 	Auth := router.Group("/api")
 	Auth.Use(Middleware.MiddlewareFunc())
 	{
 		Auth.GET("/token", Middleware.RefreshHandler)
-
-		Users := router.Group("/users")
-		{
-			Users.GET("/",  Controllers.MockFetchAll)
-			Users.GET("/:id",  Controllers.MockFetchAll)
-		}
-
-		Widgets := router.Group("/widgets")
-		{
-			Widgets.POST("/",  Controllers.MockFetchAll)
-			Widgets.GET("/",  Controllers.MockFetchAll)
-			Widgets.GET("/:id",  Controllers.MockFetchAll)
-		}
+		Auth.GET("/users",  Controllers.MockFetchAll)
+		Auth.GET("/users/:id",  Controllers.MockFetchAll)
+		Auth.POST("widgets/",  Controllers.MockFetchAll)
+		Auth.GET("widgets/",  Controllers.MockFetchAll)
+		Auth.GET("widgets/:id",  Controllers.MockFetchAll)
 
 	}
 	router.Run(":7878")
