@@ -51,12 +51,12 @@ func Routes() {
 	Auth.Use(Middleware.MiddlewareFunc())
 	{
 		Auth.GET("/token", Middleware.RefreshHandler)
-		Auth.GET("/users",  Controllers.MockFetchAll)
-		Auth.GET("/users/:id",  Controllers.MockFetchAll)
-		Auth.POST("widgets/",  Controllers.MockFetchAll)
-		Auth.GET("widgets/",  Controllers.MockFetchAll)
-		Auth.GET("widgets/:id",  Controllers.MockFetchAll)
-
+		Auth.GET("/users",  Controllers.ListUser)
+		Auth.GET("/users/:id",  Controllers.GetUser)
+		Auth.POST("widgets/",  Controllers.CreateWidget)
+		Auth.GET("widgets/",  Controllers.ListWidget)
+		Auth.GET("widgets/:id",  Controllers.GetWidget)
+		Auth.PUT("widgets/:id",  Controllers.UpdateWidget)
 	}
 	router.Run(":7878")
 }
