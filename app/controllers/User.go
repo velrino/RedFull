@@ -10,8 +10,7 @@ import (
 func ListUser(c *gin.Context) {
 	var list []Response.User
 
-	db := Config.Database()
-	db.Find(&list)
+	Config.Database().Find(&list)
 
 	if len(list) <= 0 {
 		c.JSON(http.StatusNotFound, gin.H{"message": "No users found!"})
@@ -24,9 +23,8 @@ func ListUser(c *gin.Context) {
 func GetUser(c *gin.Context) {
 	var _response []Response.User
 	ID := c.Param("id")
-
-	db := Config.Database()
-	db.First(&_response,ID)
+	
+	Config.Database().First(&_response,ID)
 
 	if len(_response) <= 0 {
 		c.JSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "message": "No User found!"})
