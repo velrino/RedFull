@@ -3,8 +3,8 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	Response "../responses"
-	Config "../config"
+	Response "github.com/velrino/RedFull/app/responses"
+	Config "github.com/velrino/RedFull/app/config"
 )
 
 func ListUser(c *gin.Context) {

@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	Response "../responses"
-	Config "../config"
+	Response "github.com/velrino/RedFull/app/responses"
+	Config "github.com/velrino/RedFull/app/config"
 )
 
 func Auth(email string, password string) (bool) {

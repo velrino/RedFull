@@ -2,8 +2,8 @@ package app
 
 import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	Model "./models"
-	Config "./config"
+	Model "github.com/velrino/RedFull/app/models"
+	Config "github.com/velrino/RedFull/app/config"
 )
 
 func DatabaseInit() {

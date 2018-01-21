@@ -3,7 +3,7 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	Response "../responses"
+	Response "github.com/velrino/RedFull/app/responses"
 )
 
 func MockFetchAll(c *gin.Context) {

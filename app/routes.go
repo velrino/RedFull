@@ -4,7 +4,7 @@ import (
 	"time"
 	"github.com/appleboy/gin-jwt"
 	"github.com/gin-gonic/gin"
-	Controllers "./controllers"
+	Controllers "github.com/velrino/RedFull/app/controllers"
 )
 
 func Routes() {

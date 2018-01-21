@@ -4,9 +4,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"gopkg.in/validator.v1"
-	Response "../responses"	
-	Validate "../validate"	
-	Config "../config"
+	Response "github.com/velrino/RedFull/app/responses"	
+	Validate "github.com/velrino/RedFull/app/validate"	
+	Config "github.com/velrino/RedFull/app/config"
 )
 
 func ListWidget(c *gin.Context) {
