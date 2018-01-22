@@ -1,7 +1,7 @@
 package main
 
 import (
-	App "./app"
+	App "github.com/velrino/RedFull/app"
 )
 
 func main() {

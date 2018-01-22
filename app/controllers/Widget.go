@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"gopkg.in/validator.v1"
 	Response "github.com/velrino/RedFull/app/responses"	
-	Models "github.com/velrino/RedFull/app/models"	
 	Validate "github.com/velrino/RedFull/app/validate"	
 	Config "github.com/velrino/RedFull/app/config"
 )
@@ -51,12 +50,14 @@ func CreateWidget(c *gin.Context) {
 }
 
 func UpdateWidget(c *gin.Context) {
-	var create Models.Widget
+	var create Validate.Widget
 	c.Bind(&create)
 	ID := c.Param("id")
+
 	if valid, _ := validator.Validate(create); valid {
 		db := Config.Database()
-		db.Model(&create).Where("id = ?", ID).Updates(&create)
+		db.First(&create,ID)
+		db.Save(&create)
 		c.JSON(http.StatusOK, gin.H{"message": "Widget updated successfully!"})
 	} else {
 		c.JSON(http.StatusNotFound, gin.H{"message": "Incorrect param"})
