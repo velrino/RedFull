@@ -1,3 +1,4 @@
+package main
 /**
 * @api {get} /api/users List
 * @apiName List Users
