@@ -7,8 +7,8 @@ import (
 )
 
 func Database() *gorm.DB {
-	//docker run --name mysqldocker -v /my/custom:/etc/mysql/conf.d -p 3369:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7
-	db, err := gorm.Open("sqlite3", "test.db")
+
+	db, err := gorm.Open("sqlite3", "redventures")
 	if err != nil {
 		panic("failed to connect database")
 	}
