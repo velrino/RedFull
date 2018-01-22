@@ -4,9 +4,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"gopkg.in/validator.v1"
-	Response "../responses"	
-	Validate "../validate"	
-	Config "../config"
+	Response "github.com/velrino/RedFull/app/responses"	
+	Models "github.com/velrino/RedFull/app/models"	
+	Validate "github.com/velrino/RedFull/app/validate"	
+	Config "github.com/velrino/RedFull/app/config"
 )
 
 func ListWidget(c *gin.Context) {
@@ -50,14 +51,12 @@ func CreateWidget(c *gin.Context) {
 }
 
 func UpdateWidget(c *gin.Context) {
-	var create Validate.Widget
+	var create Models.Widget
 	c.Bind(&create)
 	ID := c.Param("id")
-
 	if valid, _ := validator.Validate(create); valid {
 		db := Config.Database()
-		db.First(&create,ID)
-		db.Save(&create)
+		db.Model(&create).Where("id = ?", ID).Updates(&create)
 		c.JSON(http.StatusOK, gin.H{"message": "Widget updated successfully!"})
 	} else {
 		c.JSON(http.StatusNotFound, gin.H{"message": "Incorrect param"})

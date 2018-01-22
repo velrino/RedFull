@@ -6,4 +6,5 @@ type Widget struct  {
 	Inventory  int `json:"inventory"`
 	Name  string `json:"name "`
 	Price  string `json:"price"`
+	Melts  bool `json:"melts"`
 }
