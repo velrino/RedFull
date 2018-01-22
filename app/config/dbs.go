@@ -3,12 +3,12 @@ package config
 import (
 	"time"
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
 func Database() *gorm.DB {
 	//docker run --name mysqldocker -v /my/custom:/etc/mysql/conf.d -p 3369:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7
-	db, err := gorm.Open("mysql", "root:root@tcp(localhost:3310)/rv?charset=utf8&parseTime=True")
+	db, err := gorm.Open("sqlite3", "test.db")
 	if err != nil {
 		panic("failed to connect database")
 	}
